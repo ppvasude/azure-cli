@@ -272,6 +272,24 @@ def update_azure_storage_account(cmd, resource_group_name, name, custom_id, stor
 
     return result.properties
 
+def start_scan(cmd, resource_group_name, name,timeout=None, slot=None):
+    logger.warning("Getting scm site credentials for zip deployment")
+    user_name, password = _get_site_credential(cmd.cli_ctx, resource_group_name, name, slot)
+    scm_url = _get_scm_url(cmd, resource_group_name, name, slot)
+    print (scm_url)
+    print (timeout)
+    start_scan_url = "api/scan/start/"+timeout
+
+    import urllib3
+    authorization = urllib3.util.make_headers(basic_auth='{0}:{1}'.format(user_name, password))
+    headers = authorization
+    headers['content-type'] = 'application/octet-stream'
+
+    response = requests.get(deployment_status_url, headers=authorization)
+    print (response)
+    return response.json()
+
+
 
 def enable_zip_deploy(cmd, resource_group_name, name, src, timeout=None, slot=None):
     logger.warning("Getting scm site credentials for zip deployment")

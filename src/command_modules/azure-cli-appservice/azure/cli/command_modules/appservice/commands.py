@@ -168,6 +168,7 @@ def load_command_table(self, _):
         g.custom_show_command('show', 'show_source_control')
         g.custom_command('delete', 'delete_source_control')
         g.custom_command('update-token', 'update_git_token', exception_handler=ex_handler_factory())
+        g.custom_command('start-scan', 'start_scan')
 
     with self.command_group('webapp log') as g:
         g.custom_command('tail', 'get_streaming_log')
@@ -256,6 +257,7 @@ def load_command_table(self, _):
         g.custom_show_command('show', 'show_source_control')
         g.custom_command('delete', 'delete_source_control')
         g.custom_command('update-token', 'update_git_token', exception_handler=ex_handler_factory())
+        g.custom_command('start-scan', 'start_scan')
 
     with self.command_group('functionapp deployment user', webclient_sdk) as g:
         g.custom_command('set', 'set_deployment_user', exception_handler=ex_handler_factory())
